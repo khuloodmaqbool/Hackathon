@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="sticky z-40 lg:px-9 md:px-9 px-3 bg-white">
+    <nav className="sticky top-1 z-40 lg:px-9 md:px-9 px-3 bg-white">
       <div className="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8 bg-white">
         <div className="relative flex h-16 items-center justify-between">
           {/* Logo */}
