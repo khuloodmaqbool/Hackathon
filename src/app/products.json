@@ -1,0 +1,39 @@
+[
+      {
+        "id": 1,
+        "name": "Elegant Sofa",
+        "title": "Luxury Modern Sofa",
+        "shortDescription": "A contemporary sofa featuring premium upholstery and a timeless design, ensuring maximum comfort and elegance for your living space.",
+        "longDescription": "The Luxury Modern Sofa is crafted with high-density foam cushions and a solid wooden frame for durability and long-lasting comfort. Its sleek design complements any modern or classic decor, making it an ideal addition to living rooms, offices, or lounges. Available in a variety of sizes and colors, it is built to suit diverse interior styles while providing unparalleled relaxation and sophistication.",
+        "images": [
+           "syltherine.png",  "syltherine.png"
+        ],
+        "colors": ["gray", "blue", "beige", "green"],
+        "sizes": ["2-seater", "3-seater", "L-shaped"],
+        "category": "Living Room",
+        "price": 999.99,
+        "tags": ["modern", "comfortable", "luxury", "living room"],
+        "stock": 15,
+        "offer": "50%"
+      },
+      {
+        "id": 2,
+        "name": "King Size Bed",
+        "title": "Luxury Wooden Bed",
+        "shortDescription": "A spacious and elegant king-size bed crafted from premium quality wood, offering a luxurious sleep experience.",
+        "longDescription": "This Luxury Wooden Bed is meticulously crafted with a sturdy frame made of high-quality hardwood, ensuring stability and durability. Its classic design is complemented by intricate finishes and a plush headboard, making it the perfect centerpiece for your master bedroom. With ample space for comfortable sleeping, it is designed for relaxation and elegance. Choose from multiple finish options to customize your bedroom decor and enjoy restful nights in style.",
+        "images": [
+        "leviosa.png", "leviosa.png"
+
+        ],
+        "colors": ["walnut", "oak", "white"],
+        "sizes": ["king", "queen"],
+        "category": "Bedroom",
+        "price": 1499.99,
+        "tags": ["bed", "wooden", "spacious", "luxury"],
+        "stock": 8,
+        "offer": "New"
+      }
+    
+    ]
+  

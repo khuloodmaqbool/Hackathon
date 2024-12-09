@@ -11,8 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        skinColor: "#FFF3E3",
+        brownColor: "#B88E2F",
+        lightSkin: "#FCF8F3"
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 } satisfies Config;

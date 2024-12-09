@@ -1,101 +1,130 @@
+"use client"
 import Image from "next/image";
+import HeroSection from "./components/HeroSection";
+import { useContext } from "react";
+import { AppContext } from "./context/AppContext";
+import { MdOutlineCompareArrows } from "react-icons/md";
+import { IoShareSocialOutline } from "react-icons/io5";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const context = useContext(AppContext);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  if (!context) return <p>Loading...</p>;
+
+  const { state } = context;
+  const { data } = state;
+
+  const BrowseRange = [
+    {
+      img: "/images/dining.png",
+      title: "Dining",
+    },
+    {
+      img: "/images/living.png",
+      title: "Living",
+    },
+    {
+      img: "/images/bedroom.png",
+      title: "Bedroom",
+    },
+  ];
+
+  return (
+    <>
+      <HeroSection />
+
+      <h1 className="text-center font-bold text-3xl mt-12">Browse The Range</h1>
+      <p className="text-center text-gray-400 mb-5 mt-1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+      <div className="grid md:grid-cols-3 grid-cols-1 w-11/12 mx-auto gap-4">
+        {BrowseRange.map((crnt, ind) => {
+          return (
+            <>
+              <div key={ind} className="mx-auto text-center">
+                <img src={crnt.img} alt="" />
+                <h1 className="mt-5 font-bold">{crnt.title}</h1>
+              </div>
+            </>
+          );
+        })}
+      </div>
+
+      <h1 className="text-center font-bold text-3xl mt-12  mb-5 ">Our Products</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-6 w-11/12 mx-auto mt-6">
+        {data.length > 0 ? (
+          data.map((product) => (
+            <Link href={`/product/${product.id}`}>
+              <div className="group bg-gray-100 overflow-hidden relative flex flex-col  transition-shadow">
+                {/* Offer Badge */}
+                {product.offer && (
+                  <div
+                    className={`${
+                      product.offer === "New" ? "bg-teal-400" : "bg-red-500"
+                    } absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
+                  >
+                    {product.offer}
+                  </div>
+                )}
+
+                {/* Product Image */}
+                <div className="w-full h-64 relative overflow-hidden">
+                  <Image
+                    src={`/products/${product.images[0]}`}
+                    alt={product.name}
+                    width={300}
+                    height={300}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+
+                {/* Hover Overlay Effect */}
+                <div className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
+                  <button className="text-brownColor text-sm bg-white px-4 py-2  ">
+                    Add to Cart
+                  </button>
+
+                  <div className="flex">
+                    <button className="text-sm mx-1 text-white px-4 py-2 rounded flex items-center">
+                      <IoShareSocialOutline className="mr-2" />
+                      Share
+                    </button>
+
+                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded flex items-center">
+                      <MdOutlineCompareArrows className="mr-2" />
+                      Compare
+                    </button>
+
+                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded">
+                      Like
+                    </button>
+                  </div>
+                </div>
+
+                {/* Product Information */}
+                <div className="px-5 pb-4 mt-auto flex flex-col justify-between">
+                  <h3 className="text-lg font-semibold mt-2">
+                    {product.title}
+                  </h3>
+                  <h3 className="text-gray-500 mt-1">{product.name}</h3>
+                  <p className="font-semibold mt-2">
+                    Rp {product.price}{" "}
+                    <span className="text-gray-500 font-normal line-through">
+                      {product.price * 2}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p>...loading</p>
+        )}
+      </div>
+      <Link className="flex justify-center" href="/shop" >
+      <button className="border border-brownColor text-brownColor px-4 py-2 bg-white my-12" >Show More</button>
+      </Link>
+    </>
   );
 }
