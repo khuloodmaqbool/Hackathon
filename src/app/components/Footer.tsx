@@ -4,8 +4,7 @@ import Link from "next/link";
 const footerLinks = [
   { name: "Home", path: "/" },
   { name: "Shop", path: "/shop" },
-  { name: "Tour", path: "/tour" },
-  { name: "Destination", path: "/destination" },
+   { name: "Blog", path: "/blog" },
   { name: "Contact", path: "/contact" },
 ];
 const footerLinks2 = [
@@ -27,19 +26,7 @@ const Footer = () => {
             400 University Drive Suite 200 Coral Gables,
             FL 33134 USA
             </p>
-            {/* <nav className="list-none mb-10 space-y-2">
-              {contactInfo.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center gap-2 justify-center md:justify-start"
-                >
-                  <div className="text-greenColor w-6 h-6">{item.icon}</div>
-                  <span className="text-white font-semibold hover:text-gray-800">
-                    {item.text}
-                  </span>
-                </li>
-              ))}
-            </nav> */}
+         
           </div>
 
           <div className="lg:w-1/4 md:w-1/2 w-full px-4 text-black">
@@ -74,12 +61,7 @@ const Footer = () => {
             </h2>
             <div className="flex xl:flex-nowrap md:flex-nowrap lg:flex-wrap flex-wrap justify-center items-end md:justify-start">
               <div className="relative w-40 sm:w-auto xl:mr-4 lg:mr-0 sm:mr-4 mr-2">
-                {/* <label
-                  htmlFor="footer-field"
-                  className="leading-7 text-sm text-gray-400"
-                >
-                  Placeholder
-                </label> */}
+              
                 <input
                   type="text"
                   id="footer-field"

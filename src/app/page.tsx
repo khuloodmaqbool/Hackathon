@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import HeroSection from "./components/HeroSection";
 import { useContext } from "react";
@@ -7,6 +7,7 @@ import { MdOutlineCompareArrows } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
 import Link from "next/link";
 import Carousel from "./components/Carousel";
+import { PiHeart } from "react-icons/pi";
 
 export default function Home() {
   const context = useContext(AppContext);
@@ -15,6 +16,8 @@ export default function Home() {
 
   const { state } = context;
   const { data } = state;
+
+  const displayProduct = data.slice(0, 4);
 
   const BrowseRange = [
     {
@@ -52,10 +55,12 @@ export default function Home() {
         })}
       </div>
 
-      <h1 className="text-center font-bold text-3xl mt-12  mb-5 ">Our Products</h1>
+      <h1 className="text-center font-bold text-3xl mt-12  mb-5 ">
+        Our Products
+      </h1>
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-6 w-11/12 mx-auto mt-6">
-        {data.length > 0 ? (
-          data.map((product) => (
+        {displayProduct.length > 0 ? (
+          displayProduct.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <div className="group bg-gray-100 overflow-hidden relative flex flex-col  transition-shadow">
                 {/* Offer Badge */}
@@ -63,7 +68,7 @@ export default function Home() {
                   <div
                     className={`${
                       product.offer === "New" ? "bg-teal-400" : "bg-red-500"
-                    } absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
+                    } z-10 absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
                   >
                     {product.offer}
                   </div>
@@ -81,7 +86,7 @@ export default function Home() {
                 </div>
 
                 {/* Hover Overlay Effect */}
-                <div className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
+                <div className="z-20 absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
                   <button className="text-brownColor text-sm bg-white px-4 py-2  ">
                     Add to Cart
                   </button>
@@ -97,7 +102,8 @@ export default function Home() {
                       Compare
                     </button>
 
-                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded">
+                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded  flex items-center">
+                      <PiHeart className="mr-2" />
                       Like
                     </button>
                   </div>
@@ -110,7 +116,7 @@ export default function Home() {
                   </h3>
                   <h3 className="text-gray-500 mt-1">{product.name}</h3>
                   <p className="font-semibold mt-2">
-                    Rp {product.price}{" "}
+                    Rp {product.price}
                     <span className="text-gray-500 font-normal line-through">
                       {product.price * 2}
                     </span>
@@ -123,11 +129,13 @@ export default function Home() {
           <p>...loading</p>
         )}
       </div>
-      <Link className="flex justify-center" href="/shop" >
-      <button className="border border-brownColor text-brownColor px-4 py-2 bg-white my-12" >Show More</button>
+      <Link className="flex justify-center" href="/shop">
+        <button className="border border-brownColor text-brownColor px-4 py-2 bg-white my-12">
+          Show More
+        </button>
       </Link>
 
-      <Carousel/>
+      <Carousel />
     </>
   );
 }

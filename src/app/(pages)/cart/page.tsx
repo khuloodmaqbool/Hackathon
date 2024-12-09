@@ -1,6 +1,7 @@
 import FooterHeader from "@/app/components/FooterHeader";
 import HeaderBanner from "@/app/components/HeaderBanner";
 import Image from "next/image";
+import Link from "next/link";
 import { AiFillDelete } from "react-icons/ai";
 
 const Cart = () => {
@@ -74,9 +75,11 @@ const Cart = () => {
           </div>
 
           {/* Checkout Button */}
-          <button className="mt-6 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+       <Link href="/checkout" >
+       <button className="mt-6 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
             Check Out
           </button>
+       </Link>
         </div>
       </div>
 

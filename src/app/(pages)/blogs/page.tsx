@@ -18,18 +18,12 @@ const Blog = () => {
     },
     {
       id:3,
-      img: "blog7.png",
-      title: "Handmade pieces that took time to make",
-      para: "03 Aug 2022",
-    },
-    {
-      id:4,
       img: "blog8.png",
       title: "Modern home in Milan",
       para: "03 Aug 2022",
     },
     {
-      id:5,
+      id:4,
       img: "blog9.png",
       title: "Colorful office redesign",
       para: "03 Aug 2022",

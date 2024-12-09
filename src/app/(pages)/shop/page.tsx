@@ -12,6 +12,7 @@ import { MdFilterList } from "react-icons/md";
 import Image from "next/image";
 import FooterHeader from "@/app/components/FooterHeader";
 import Link from "next/link";
+import { PiHeart } from "react-icons/pi";
 
 const Shop = () => {
   const context = useContext(AppContext);
@@ -81,7 +82,7 @@ const Shop = () => {
                 <div
                   className={`${
                     product.offer === "New" ? "bg-teal-400" : "bg-red-500"
-                  } absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
+                  } z-10 absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
                 >
                   {product.offer}
                 </div>
@@ -99,7 +100,7 @@ const Shop = () => {
               </div>
 
               {/* Hover Overlay Effect */}
-              <div className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
+              <div className="z-20 absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
                 <button className="text-brownColor text-sm bg-white px-4 py-2  ">
                   Add to Cart
                 </button>
@@ -115,8 +116,9 @@ const Shop = () => {
                     Compare
                   </button>
 
-                  <button className=" text-sm mx-1 text-white px-4 py-2 rounded">
-                    Like
+                  <button className=" text-sm mx-1 text-white px-4 py-2 rounded  flex items-center">
+                      <PiHeart className="mr-2" />
+                      Like
                   </button>
                 </div>
               </div>

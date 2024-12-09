@@ -7,6 +7,7 @@ import AddToCart from "@/app/components/AddToCart";
 import Link from "next/link";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { PiHeart } from "react-icons/pi";
 
 interface ParamType {
   params: Promise<{
@@ -31,7 +32,6 @@ const SingleProduct = ({ params }: ParamType) => {
   const product = data.find((crnt) => crnt.id.toString() === id);
   const relatedProducts = data.slice(0, 4);
 
-  // Initialize the selected image once the product is available
   if (product && !selectedImage) {
     setSelectedImage(product.images[0]);
   }
@@ -42,14 +42,12 @@ const SingleProduct = ({ params }: ParamType) => {
     { name: "Ahmed", review: "Highly recommend this to everyone." },
   ];
 
-
   return (
     <>
       {product && (
         <section className="text-gray-600 body-font overflow-hidden">
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
-              {/* Main Large Image */}
               <Image
                 alt="ecommerce"
                 src={`/products/${selectedImage}`}
@@ -68,7 +66,6 @@ const SingleProduct = ({ params }: ParamType) => {
                 </div>
                 <p className="leading-relaxed">{product.shortDescription}</p>
 
-                {/* Thumbnail Images */}
                 <div className="flex gap-4 mt-4">
                   {product.images.map((image, index) => (
                     <div
@@ -161,15 +158,21 @@ const SingleProduct = ({ params }: ParamType) => {
           )}
 
           {activeTab === "reviews" && (
-            <div>
-              <h3 className="text-2xl font-semibold">Customer Reviews</h3>
-              {reviews.map((review, index) => (
-                <div key={index} className="border-b pb-4 mb-4 border-gray-300">
-                  <h4 className="font-semibold">{review.name}</h4>
-                  <p>{review.review}</p>
-                </div>
-              ))}
-            </div>
+         <div className="p-6 bg-white rounded-lg shadow-md">
+         <h3 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-2 border-gray-300">
+           Customer Reviews
+         </h3>
+         {reviews.map((review, index) => (
+           <div
+             key={index}
+             className="p-4 mb-4 border rounded-lg border-gray-200 bg-gray-50 hover:shadow-lg transition-shadow duration-300"
+           >
+             <h4 className="font-semibold text-lg text-gray-700 mb-2">{review.name}</h4>
+             <p className="text-gray-600 leading-relaxed">{review.review}</p>
+           </div>
+         ))}
+       </div>
+       
           )}
         </div>
       )}
@@ -187,7 +190,7 @@ const SingleProduct = ({ params }: ParamType) => {
                   <div
                     className={`${
                       product.offer === "New" ? "bg-teal-400" : "bg-red-500"
-                    } absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
+                    } z-10 absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md`}
                   >
                     {product.offer}
                   </div>
@@ -205,7 +208,7 @@ const SingleProduct = ({ params }: ParamType) => {
                 </div>
 
                 {/* Hover Overlay Effect */}
-                <div className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
+                <div className="z-20 absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
                   <button className="text-brownColor text-sm bg-white px-4 py-2  ">
                     Add to Cart
                   </button>
@@ -221,7 +224,8 @@ const SingleProduct = ({ params }: ParamType) => {
                       Compare
                     </button>
 
-                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded">
+                    <button className=" text-sm mx-1 text-white px-4 py-2 rounded  flex items-center">
+                      <PiHeart className="mr-2" />
                       Like
                     </button>
                   </div>

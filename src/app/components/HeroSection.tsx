@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const HeroSection = () => {
   return (
     <>
@@ -22,9 +24,11 @@ const HeroSection = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
               tellus, luctus nec ullamcorper mattis.
             </p>
+            <Link href="/shop" >
             <button className="py-4 px-8 bg-brownColor text-white mt-6">
               Buy Now
             </button>
+            </Link>
           </div>
         </div>
       </div>

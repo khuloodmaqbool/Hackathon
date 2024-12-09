@@ -78,7 +78,7 @@ const Checkout: React.FC = () => {
 
           <button
             type="submit"
-            className="bg-brownColor text-white px-6 py-3 rounded-lg hover:bg-brownColor-dark"
+            className="w-fit bg-brownColor text-white px-6 py-3 rounded-lg hover:bg-brownColor-dark"
           >
             Submit
           </button>
@@ -143,7 +143,7 @@ const Checkout: React.FC = () => {
             <span className="font-semibold">privacy policy</span>.
           </p>
 
-          <button className="bg-white text-black border border-black px-6 py-3 rounded-lg hover:bg-black hover:text-white">
+          <button className=" bg-white text-black border border-black px-6 py-3 rounded-lg hover:bg-black hover:text-white">
             Place Order
           </button>
         </div>
