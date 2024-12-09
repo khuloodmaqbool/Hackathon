@@ -2,7 +2,6 @@ import FooterHeader from "@/app/components/FooterHeader";
 import HeaderBanner from "@/app/components/HeaderBanner";
 import Image from "next/image";
 import { AiFillDelete } from "react-icons/ai";
-import { RxCross1 } from "react-icons/rx";
 
 const Cart = () => {
   return (

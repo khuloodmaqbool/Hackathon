@@ -48,7 +48,6 @@ const Shop = () => {
           </p>
         </div>
 
-        {/* Show and Sort By Dropdown */}
         <div className="flex items-center justify-start md:justify-end space-x-6 my-3 md:my-0 ">
           {/* Show products count */}
           <div className="flex items-center">
@@ -75,9 +74,9 @@ const Shop = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-6 w-11/12 mx-auto mt-6">
         {data.length > 0 ? (
           data.map((product) => (
-         <Link href={`/product/${product.id}`} >
+         <Link key={product.id} href={`/product/${product.id}`} >
              <div className="group bg-gray-100 overflow-hidden relative flex flex-col  transition-shadow">
-              {/* Offer Badge */}
+            
               {product.offer && (
                 <div
                   className={`${

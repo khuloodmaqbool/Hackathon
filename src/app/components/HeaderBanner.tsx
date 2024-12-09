@@ -1,6 +1,10 @@
 import React from "react";
 
-const HeaderBanner = ({ heading }) => {
+interface ObjType  {
+  heading: string
+}
+
+const HeaderBanner = ({ heading }:ObjType) => {
   return (
     <div
       style={{

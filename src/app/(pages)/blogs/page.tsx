@@ -5,26 +5,31 @@ import blogs from "@/app/blog.json";
 const Blog = () => {
   const recentPosts = [
     {
+      id:1,
       img: "blog4.png",
       title: "Going all-in with millennial design",
       para: "03 Aug 2022",
     },
     {
+      id:2,
       img: "blog6.png",
       title: "Exploring new ways of decorating",
       para: "03 Aug 2022",
     },
     {
+      id:3,
       img: "blog7.png",
       title: "Handmade pieces that took time to make",
       para: "03 Aug 2022",
     },
     {
+      id:4,
       img: "blog8.png",
       title: "Modern home in Milan",
       para: "03 Aug 2022",
     },
     {
+      id:5,
       img: "blog9.png",
       title: "Colorful office redesign",
       para: "03 Aug 2022",
@@ -40,8 +45,8 @@ const Blog = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-4 w-11/12 mx-auto">
         {/* Main Blog Content (2/3 of the grid) */}
         <div className="col-span-1  md:col-span-2 space-y-6">
-          {blogs.map((blog, index) => (
-            <div key={index} className="space-y-5 my-12 pb-6">
+          {blogs.map((blog) => (
+            <div key={blog.id} className="space-y-5 my-12 pb-6">
               <Image
                 className="w-full h-auto object-cover rounded-md"
                 src={`/blog/${blog.img}`}
@@ -51,48 +56,46 @@ const Blog = () => {
               />
               <h5 className="text-lg font-bold ">{blog.title}</h5>
               <p className="text-gray-600 ">{blog.description}</p>
-              <button className="bg-white outline-none border-b border-black text-black " >Read More</button>
+              <button className="bg-white outline-none border-b border-black text-black ">
+                Read More
+              </button>
             </div>
           ))}
         </div>
 
         {/* Sidebar Content (1/3 of the grid) */}
         <div className="text-black p-4 rounded-md mt-12">
+          <label className="input input-bordered flex items-center gap-2">
+            <input type="text" className="grow" placeholder="Search" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-4 w-4 opacity-70"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </label>
 
-
-        <label className="input input-bordered flex items-center gap-2">
-  <input type="text" className="grow" placeholder="Search" />
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70">
-    <path
-      fillRule="evenodd"
-      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-      clipRule="evenodd" />
-  </svg>
-</label>
-
-<h4 className="text-xl font-semibold my-6">Categories</h4>
-<div className="flex flex-col space-y-8 pb-20" >
-{
-    ["Crafts","Design","Handmade","Interior","Wood"].map((crnt)=>{
-        return(
-            <p className="text-gray-400" >{crnt}</p>
-        )
-    })
-}
-</div>
-
-
+          <h4 className="text-xl font-semibold my-6">Categories</h4>
+          <div className="flex flex-col space-y-8 pb-20">
+            {["Crafts", "Design", "Handmade", "Interior", "Wood"].map(
+              (crnt,ind) => {
+                return <p key={ind} className="text-gray-400">{crnt}</p>;
+              }
+            )}
+          </div>
 
           <h4 className="text-xl font-semibold mb-4">Recent Posts</h4>
 
           {/* Recent Posts List */}
           <div className="space-y-6">
-            {recentPosts.map((post, index) => (
-              <div key={index} className="flex items-center gap-4">
+            {recentPosts.map((post) => (
+              <div key={post.id} className="flex items-center gap-4">
                 <Image
                   src={`/blog/${post.img}`}
                   alt={post.title}
@@ -107,10 +110,6 @@ const Blog = () => {
               </div>
             ))}
           </div>
-
-
-
-
         </div>
       </div>
     </>
@@ -120,22 +119,3 @@ const Blog = () => {
 export default Blog;
 
 
-
-// {
-//   "title": "",
-//   "img": "blog2.png",
-//   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
-//   "date": "14 Oct 2022",
-//   "category": "Handmade",
-//   "post": "Admin"
-
-// },
-// {
-//   "title": "",
-//   "img": "blog3.png",
-//   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mus mauris vitae ultricies leo integer malesuada nunc. In nulla posuere sollicitudin aliquam ultrices. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Libero enim sed faucibus turpis in. Cursus mattis molestie a iaculis at erat. Nibh cras pulvinar mattis nunc sed blandit libero. Pellentesque elit ullamcorper dignissim cras tincidunt. Pharetra et ultrices neque ornare aenean euismod elementum.",
-//   "date": "14 Oct 2022",
-//   "category": "Wood",
-//   "post": "Admin"
-
-// }

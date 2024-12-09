@@ -33,6 +33,108 @@
         "tags": ["bed", "wooden", "spacious", "luxury"],
         "stock": 8,
         "offer": "New"
+      },
+      {
+        "id": 3,
+        "name": "Dining Table Set",
+        "title": "6-Seater Dining Set",
+        "shortDescription": "A modern dining table set for six, featuring durable craftsmanship and an elegant design for family meals and gatherings.",
+        "longDescription": "This 6-Seater Dining Set is the perfect blend of style and functionality, designed to elevate your dining experience. The table is made from premium wood with a smooth, scratch-resistant surface, and comes paired with ergonomically designed chairs for superior comfort. Its minimalist aesthetic seamlessly fits into both modern and traditional dining spaces, making it a versatile choice for hosting dinners, family meals, or celebrations. Available in multiple finishes to suit your home’s interior.",
+        "images": [
+            "lolita.png"
+         ],
+        "colors": ["espresso", "white", "natural"],
+        "sizes": ["6-seater", "8-seater"],
+        "category": "Dining",
+        "price": 1199.99,
+        "tags": ["dining", "table", "set", "family"],
+        "stock": 12,
+        "offer": "50%"
+      },
+      {
+        "id": 4,
+        "name": "TV Console",
+        "title": "Modern TV Unit",
+        "shortDescription": "A sleek and versatile TV console with multiple compartments, perfect for organizing media and enhancing your living room decor.",
+        "longDescription": "The Modern TV Unit is a stylish and practical solution for your entertainment area. It features ample storage space with open shelves, drawers, and cable management systems to keep your media devices and accessories neatly organized. Crafted with a durable MDF frame and finished with a sleek laminate, this console blends functionality with modern aesthetics. Ideal for TVs up to 70 inches, it is available in various colors to complement your living room setup.",
+        "images": [
+            "respira.png"
+         ],
+        "colors": ["black", "white", "brown"],
+        "sizes": ["medium", "large"],
+        "category": "Living Room",
+        "price": 799.99,
+        "tags": ["tv unit", "storage", "modern", "living room"],
+        "stock": 10,
+        "offer": "50%"
+      },
+      {
+        "id": 5,
+        "name": "Wardrobe",
+        "title": "Spacious Bedroom Wardrobe",
+        "shortDescription": "A modern wardrobe featuring a sleek design and multiple compartments for organized bedroom storage.",
+        "longDescription": "This Spacious Bedroom Wardrobe is designed to meet all your storage needs. Its contemporary style makes it a great addition to any bedroom, while the durable construction ensures long-lasting functionality. With hanging rods, adjustable shelves, and pull-out drawers, it provides ample room to store clothes, shoes, and accessories neatly. Available in various finishes, this wardrobe combines aesthetics and utility, helping you create a clutter-free and stylish space.",
+        "images": [
+                 "syltherine.png"
+         ],
+        "colors": ["brown", "white", "gray"],
+        "sizes": ["2-door", "3-door"],
+        "category": "Bedroom",
+        "price": 1399.99,
+        "tags": ["wardrobe", "storage", "bedroom", "modern"],
+        "stock": 7,
+        "offer": "New"
+      },
+      {
+        "id": 6,
+        "name": "Coffee Table",
+        "title": "Minimalist Coffee Table",
+        "shortDescription": "A compact and elegant coffee table designed with clean lines and a minimalist aesthetic for modern living spaces.",
+        "longDescription": "This Minimalist Coffee Table offers a perfect balance of style and practicality. Its sleek design features a durable wooden top and metal legs for stability, making it a great choice for small or large living rooms. The scratch-resistant surface ensures it retains its charm over time, while the compact design makes it versatile for various uses, such as holding magazines, beverages, or decorative items. Choose from a range of finishes to match your interior.",
+        "images": [
+            "leviosa.png"
+         ],
+        "colors": ["white", "black", "wooden"],
+        "sizes": ["medium", "compact"],
+        "category": "Living Room",
+        "price": 299.99,
+        "tags": ["coffee table", "minimalist", "living room", "modern"],
+        "stock": 20,
+        "offer": "New"
+      },
+      {
+        "id": 7,
+        "name": "Dining Chair Set",
+        "title": "Set of 4 Dining Chairs",
+        "shortDescription": "A set of four comfortable and stylish dining chairs designed to enhance your dining experience with ergonomic support.",
+        "longDescription": "This Set of 4 Dining Chairs is perfect for complementing any dining table with their elegant and modern design. Each chair features a sturdy wooden frame and high-density foam seating for exceptional comfort during long meals or gatherings. The durable fabric upholstery is easy to clean and available in multiple colors, ensuring a perfect match for your dining area. These chairs are lightweight yet robust, combining practicality with refined aesthetics.",
+        "images": [
+          "lolita.png" ,      "leviosa.png"
+         ],
+        "colors": ["gray", "beige", "brown"],
+        "sizes": ["standard"],
+        "category": "Dining",
+        "price": 499.99,
+        "tags": ["dining", "chairs", "comfortable", "set"],
+        "stock": 25,
+        "offer": "50%"
+      },
+      {
+        "id": 8,
+        "name": "Bedside Table",
+        "title": "Compact Bedside Table",
+        "shortDescription": "A sleek bedside table featuring a drawer and a shelf for convenient nighttime storage.",
+        "longDescription": "This Compact Bedside Table is the perfect addition to any bedroom. With its minimalist design and functional storage options, it offers a convenient place to keep books, a lamp, or personal items within reach. The high-quality wooden frame is built for durability, while the smooth finish adds a touch of elegance to your space. Available in multiple sizes and colors, this bedside table effortlessly blends with modern and traditional decor styles.",
+        "images": [
+               "respira.png"
+         ],
+        "colors": ["white", "black", "walnut"],
+        "sizes": ["small", "medium"],
+        "category": "Bedroom",
+        "price": 199.99,
+        "tags": ["bedside table", "storage", "modern", "bedroom"],
+        "stock": 18,
+        "offer": "New"
       }
     
     ]

@@ -6,6 +6,7 @@ import { AppContext } from "./context/AppContext";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
 import Link from "next/link";
+import Carousel from "./components/Carousel";
 
 export default function Home() {
   const context = useContext(AppContext);
@@ -55,7 +56,7 @@ export default function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-6 w-11/12 mx-auto mt-6">
         {data.length > 0 ? (
           data.map((product) => (
-            <Link href={`/product/${product.id}`}>
+            <Link key={product.id} href={`/product/${product.id}`}>
               <div className="group bg-gray-100 overflow-hidden relative flex flex-col  transition-shadow">
                 {/* Offer Badge */}
                 {product.offer && (
@@ -125,6 +126,8 @@ export default function Home() {
       <Link className="flex justify-center" href="/shop" >
       <button className="border border-brownColor text-brownColor px-4 py-2 bg-white my-12" >Show More</button>
       </Link>
+
+      <Carousel/>
     </>
   );
 }

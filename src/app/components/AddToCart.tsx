@@ -1,9 +1,31 @@
 
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { CartAmount } from "./CartAmount";
 
-const AddToCart = ({ product }) => {
+
+interface ProductType {
+  id: number;
+  name: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  images: string[];
+  colors: string[];
+  sizes: string[];
+  category: string;
+  price: number;
+  tags: string[];
+  stock: number;
+  offer: string;
+}
+
+interface ObjType {
+  product:ProductType
+}
+
+
+const AddToCart = ({ product }:ObjType) => {
   const { colors, sizes, stock } = product;
   const [colorState, setColor] = useState(colors[0]);
   const [sizeState, setSize] = useState(sizes[0]);

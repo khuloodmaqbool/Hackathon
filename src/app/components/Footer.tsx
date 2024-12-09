@@ -1,17 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import { PiInstagramLogoFill } from "react-icons/pi";
-import { CgMail } from "react-icons/cg";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { SlLocationPin } from "react-icons/sl";
-
-const socialLinks = [
-  { icon: <FaFacebookF />, href: "#" },
-  { icon: <FaTwitter />, href: "#" },
-  { icon: <PiInstagramLogoFill />, href: "#" },
-  { icon: <FaLinkedinIn />, href: "#" },
-];
 
 const footerLinks = [
   { name: "Home", path: "/" },
@@ -26,11 +14,7 @@ const footerLinks2 = [
   { name: "Privacy Policy", path: "#" },
 ];
 
-const contactInfo = [
-  { icon: <CgMail />, text: "terratrips@gmail.com" },
-  { icon: <MdOutlineLocalPhone />, text: "+123 456 789" },
-  { icon: <SlLocationPin />, text: "Pakistan" },
-];
+
 
 const Footer = () => {
   return (

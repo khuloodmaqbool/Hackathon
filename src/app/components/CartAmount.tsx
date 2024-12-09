@@ -1,7 +1,7 @@
 "use client"
 interface PropsType {
-    increase: number,
-    decrease: number,
+  increase: () => void; 
+  decrease: () => void;
     amount: number,
 }
 

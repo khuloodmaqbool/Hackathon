@@ -1,7 +1,4 @@
 import HeaderBanner from "@/app/components/HeaderBanner";
-import Image from "next/image";
-import { RxCross1 } from "react-icons/rx";
-
 
 interface FormField {
   label: string;
@@ -151,10 +148,6 @@ const Checkout: React.FC = () => {
           </button>
         </div>
       </div>
-
-
-    
-
     </>
   );
 };

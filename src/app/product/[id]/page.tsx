@@ -20,6 +20,9 @@ const SingleProduct = ({ params }: ParamType) => {
 
   const context = useContext(AppContext);
 
+  const [activeTab, setActiveTab] = useState("description");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   if (!context) return <p>Loading...</p>;
 
   const { state } = context;
@@ -28,17 +31,17 @@ const SingleProduct = ({ params }: ParamType) => {
   const product = data.find((crnt) => crnt.id.toString() === id);
   const relatedProducts = data.slice(0, 4);
 
-  const [selectedImage, setSelectedImage] = useState(
-    product && product.images[0]
-  );
-
-  const [activeTab, setActiveTab] = useState("description");
+  // Initialize the selected image once the product is available
+  if (product && !selectedImage) {
+    setSelectedImage(product.images[0]);
+  }
 
   const reviews = [
     { name: "Ali", review: "Amazing product, worth the price!" },
     { name: "Sara", review: "Good quality and fast delivery." },
     { name: "Ahmed", review: "Highly recommend this to everyone." },
   ];
+
 
   return (
     <>
