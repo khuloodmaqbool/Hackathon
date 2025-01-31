@@ -1,15 +1,17 @@
-
-import {  useState } from "react";
+"use client";
+import { useContext, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { CartAmount } from "./CartAmount";
-
+import { CartContext } from "../context/CartContext";
 
 interface ProductType {
-  id: number;
+  _id: number;
+  id: string;
   name: string;
   title: string;
-  shortDescription: string;
-  longDescription: string;
+  // shortDescription: string;
+  // longDescription: string;
+  description: string;
   images: string[];
   colors: string[];
   sizes: string[];
@@ -20,18 +22,19 @@ interface ProductType {
   offer: string;
 }
 
+
+
 interface ObjType {
-  product:ProductType
+  product: ProductType;
 }
 
-
-const AddToCart = ({ product }:ObjType) => {
+const AddToCart = ({ product }: ObjType) => {
   const { colors, sizes, stock } = product;
   const [colorState, setColor] = useState(colors[0]);
   const [sizeState, setSize] = useState(sizes[0]);
   const [amount, setAmount] = useState(1);
 
-//   const { AddToCartBtn } = useContext(CartContext);
+  const { AddToCartBtn } = useContext(CartContext) ?? {};
 
   console.log("ADD TO CART LOG" + AddToCart);
 
@@ -46,7 +49,7 @@ const AddToCart = ({ product }:ObjType) => {
       setAmount(amount - 1);
     }
   };
-
+  console.log("cart details" + colorState, sizeState, product, amount);
   return (
     <>
       <hr className="my-3" />
@@ -92,14 +95,16 @@ const AddToCart = ({ product }:ObjType) => {
       <div className="flex items-center my-3 mt-6 gap-3 justify-center">
         <CartAmount amount={amount} increase={increase} decrease={decrease} />
 
-        <button
-        //   onClick={() =>
-        //     AddToCartBtn({ colorState, sizeState, product, amount })
-        //   }
-          className="duration-300 flex ml-auto text-white h-fit bg-black text-center py-2 px-6 border border-black hover:bg-white hover:text-black rounded-full w-full"
-        >
-          Add to Cart
-        </button>
+        {AddToCartBtn && (
+          <button
+            onClick={() =>
+              AddToCartBtn({ colorState, sizeState, product, amount })
+            }
+            className="duration-300 flex ml-auto text-white h-fit bg-black text-center py-2 px-6 border border-black hover:bg-white hover:text-black rounded-full w-full"
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
     </>
   );

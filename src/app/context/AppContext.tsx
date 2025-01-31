@@ -1,14 +1,16 @@
 "use client";
 
 import { createContext, ReactNode, useEffect, useReducer } from "react";
-import productsData from "@/app/products.json";
+import { client } from "@/sanity/lib/client"; // Assuming you're using Sanity
 
 interface Product {
-  id: number;
+  _id: number;
+  id: string;
   name: string;
   title: string;
-  shortDescription: string;
-  longDescription: string;
+  // shortDescription: string;
+  // longDescription: string;
+  description:string;
   images: string[];
   colors: string[];
   sizes: string[];
@@ -50,8 +52,32 @@ export const AppProvider = ({ children }: ChildType) => {
 
   const [state, dispatch] = useReducer(appReducer, initialState);
 
+  const fetchProducts = async () => {
+    try {
+      const products = await client.fetch(`*[_type == 'product']{
+        _id,
+        name,
+        title,
+        // shortDescription,
+        // longDescription,
+        description,
+        "images": images[].asset._ref,
+        colors,
+        sizes,
+        category,
+        price,
+        tags,
+        stock,
+        offer
+      }`);
+      dispatch({ type: "ALL_PRODUCTS", payload: products });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
   useEffect(() => {
-    dispatch({ type: "ALL_PRODUCTS", payload: productsData });
+    fetchProducts();
   }, []);
 
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;

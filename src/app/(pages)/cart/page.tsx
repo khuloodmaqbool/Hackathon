@@ -1,65 +1,104 @@
+"use client"; 
+import { useState, useEffect, useContext } from "react";
 import FooterHeader from "@/app/components/FooterHeader";
 import HeaderBanner from "@/app/components/HeaderBanner";
+import { CartContext } from "@/app/context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
-import { AiFillDelete } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
+import { CartAmount } from "@/app/components/CartAmount";
+import imageUrlBuilder from "@sanity/image-url";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { client } from "@/sanity/lib/client";
 
 const Cart = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Set to true once on the client side
+  }, []);
+
+  const builder = imageUrlBuilder(client);
+  const urlFor = (source: SanityImageSource) =>
+    builder.image(source).auto("format").fit("max").quality(80).width(600);
+
+  const cartContext = useContext(CartContext);
+
+  if (!isClient) return null; // Prevent rendering on the server
+
+  if (!cartContext) {
+    return <p className="text-center mt-10">Loading cart...</p>;
+  }
+
+  const {
+    cart,
+    removeCartItem,
+    increment,
+    decrement,
+    shipping_fee,
+    subtotal_amount,
+    clearCartBtn,
+  } = cartContext;
+
   return (
     <>
       <HeaderBanner heading="Cart" />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 w-11/12 mx-auto gap-6 mt-12">
         {/* Product Table Section */}
-        <div className="lg:col-span-2 col-span-1">
-          <table className="w-full border-collapse">
-            <thead className="bg-lightSkin py-3">
-              <tr>
-                <th className="text-center font-semibold py-2">Product</th>
-                <th className="text-center font-semibold py-2 block sm:hidden">Price</th>
-                <th className="text-center font-semibold py-2">Quantity</th>
-                <th className="text-center font-semibold py-2">Subtotal</th>
-                <th className="text-center font-semibold py-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="text-center flex gap-3 justify-center items-center py-4 rounded-lg">
-                  <Image
-                    src="/products/lolita.png"
-                    alt="Product"
-                    width={100}
-                    height={100}
-                    className="rounded-lg"
-                  />
-                  <span className="text-gray-500">Asguard Sofa</span>
-                </td>
-
-                {/* Price hidden on large screens */}
-                <td className="text-center text-gray-500 block sm:hidden">Rs. 250,000.00</td>
-
-                {/* Quantity Input */}
-                <td className="text-center">
-                  <input
-                    type="number"
-                    defaultValue="1"
-                    min="1"
-                    className="w-12 text-center border border-gray-300 rounded-md"
-                  />
-                </td>
-
-                {/* Subtotal */}
-                <td className="text-center">Rs. 250,000.00</td>
-
-                {/* Delete Button */}
-                <td className="text-center">
-                  <button className="text-brownColor text-2xl">
-                    <AiFillDelete />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="rounded-xl border px-4 lg:col-span-2 col-span-1">
+          {cart.length > 0 ? (
+            cart.map(({ id, name, images, color, sizes, price, amount }) => (
+              <div key={id} className="py-4">
+                <div className="flex justify-between items-center">
+                  <div className="flex">
+                    {images?.length > 0 ? (
+                      <Image
+                        alt={name}
+                        src={urlFor(images[0])?.url()}
+                        width={300}
+                        height={300}
+                        className="w-24 h-20 me-2 object-cover rounded"
+                      />
+                    ) : (
+                      <p className="text-center text-gray-500">
+                        No images available
+                      </p>
+                    )}
+                    <div>
+                      <p className="font-semibold">{name}</p>
+                      <div className="flex items-center space-x-2 my-1">
+                        <span className="text-gray-600 text-sm">Color:</span>
+                        <div
+                          className="rounded-full w-5 h-5 border"
+                          style={{ backgroundColor: color }}
+                        />
+                      </div>
+                      <p className="text-gray-600 text-sm">Size: {sizes}</p>
+                    </div>
+                  </div>
+                  {removeCartItem && (
+                    <button onClick={() => removeCartItem(id)}>
+                      <MdDelete className="text-red-600 w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-lg font-bold">Rs {price}</p>
+                  {decrement && increment && (
+                    <CartAmount
+                      amount={amount}
+                      increase={() => increment(id)}
+                      decrease={() => decrement(id)}
+                    />
+                  )}
+                </div>
+                <hr />
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500 py-6">Your cart is empty.</p>
+          )}
         </div>
 
         {/* Cart Totals Section */}
@@ -68,18 +107,28 @@ const Cart = () => {
 
           <div className="grid grid-cols-2 gap-y-6">
             <p>Subtotal</p>
-            <p>Rs. 250,000.00</p>
+            <p>Rs. {subtotal_amount?.toLocaleString() || "0"}</p>
+
+            <p>Shipping</p>
+            <p>Rs. {shipping_fee?.toLocaleString() || "0"}</p>
 
             <p>Total</p>
-            <p className="text-lg text-brownColor font-semibold">Rs. 250,000.00</p>
+            <p className="text-lg text-brownColor font-semibold">
+              Rs. {(subtotal_amount + shipping_fee)?.toLocaleString() || "0"}
+            </p>
           </div>
 
           {/* Checkout Button */}
-       <Link href="/checkout" >
-       <button className="mt-6 bg-white border border-gray text-white px-6 py-3 rounded-lg hover:black">
-            Check Out
+          <Link href="/checkout">
+            <button className="mt-6 bg-brownColor text-white px-6 py-3 rounded-lg hover:bg-brownDark">
+              Check Out
+            </button>
+          </Link>
+
+          {/* Clear Cart Button */}
+          <button className="mt-4 text-red-500 underline" onClick={clearCartBtn}>
+            Clear Cart
           </button>
-       </Link>
         </div>
       </div>
 
