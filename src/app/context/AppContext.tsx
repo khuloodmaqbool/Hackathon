@@ -8,8 +8,6 @@ interface Product {
   id: string;
   name: string;
   title: string;
-  // shortDescription: string;
-  // longDescription: string;
   description:string;
   images: string[];
   colors: string[];

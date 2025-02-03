@@ -1,34 +1,71 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import HeaderBanner from "@/app/components/HeaderBanner";
-import blogs from "@/app/blog.json";
+import imageUrlBuilder from "@sanity/image-url";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { client } from "@/sanity/lib/client";
+
+// Initialize the image URL builder
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: SanityImageSource) {
+  return builder.image(source);
+}
+
+// Define types for blog and category data
+interface Blog {
+  _id: string;
+  title: string;
+  description: string;
+  img: SanityImageSource;
+  date: string;
+  categoryTitle: string;
+  post: string;
+}
+
+interface Category {
+  title: string;
+}
 
 const Blog = () => {
-  const recentPosts = [
-    {
-      id:1,
-      img: "blog4.png",
-      title: "Going all-in with millennial design",
-      para: "03 Aug 2022",
-    },
-    {
-      id:2,
-      img: "blog6.png",
-      title: "Exploring new ways of decorating",
-      para: "03 Aug 2022",
-    },
-    {
-      id:3,
-      img: "blog8.png",
-      title: "Modern home in Milan",
-      para: "03 Aug 2022",
-    },
-    {
-      id:4,
-      img: "blog9.png",
-      title: "Colorful office redesign",
-      para: "03 Aug 2022",
-    },
-  ];
+  const [blogs, setBlogs] = useState<Blog[]>([]); // Replace any[] with Blog[]
+  const [categories, setCategories] = useState<string[]>([]); // No change for categories as it’s just an array of strings
+  const [recentPosts, setRecentPosts] = useState<Blog[]>([]); // Replace any[] with Blog[]
+
+  // Fetch blogs and categories from Sanity
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const blogsQuery = `*[_type == "blog"]{
+          _id,
+          title,
+          description,
+          img,
+          date,
+          "categoryTitle": category->title,
+          post
+        }`;
+
+        const categoriesQuery = `*[_type == "category"]{
+          title
+        }`;
+
+        const blogsData = await client.fetch(blogsQuery);
+        const categoriesData = await client.fetch(categoriesQuery);
+
+        setBlogs(blogsData);
+        setCategories(categoriesData.map((cat: Category) => cat.title));
+
+        setRecentPosts(blogsData.slice(0, 4));  
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -37,28 +74,30 @@ const Blog = () => {
 
       {/* Blog Content Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 p-4 w-11/12 mx-auto">
-        {/* Main Blog Content (2/3 of the grid) */}
-        <div className="col-span-1  md:col-span-2 space-y-6">
+        {/* Main Blog Content */}
+        <div className="col-span-1 md:col-span-2 space-y-6">
           {blogs.map((blog) => (
-            <div key={blog.id} className="space-y-5 my-12 pb-6">
+            <div key={blog._id} className="space-y-5 my-12 pb-6">
               <Image
                 className="w-full h-auto object-cover rounded-md"
-                src={`/blog/${blog.img}`}
+                src={urlFor(blog.img).url()} 
                 alt={blog.title}
                 width={400}
                 height={200}
+                priority
               />
-              <h5 className="text-lg font-bold ">{blog.title}</h5>
-              <p className="text-gray-600 ">{blog.description}</p>
-              <button className="bg-white outline-none border-b border-black text-black ">
+              <h5 className="text-lg font-bold">{blog.title}</h5>
+              <p className="text-gray-600">{blog.description}</p>
+              <button className="bg-white border-b border-black text-black hover:opacity-75 transition">
                 Read More
               </button>
             </div>
           ))}
         </div>
 
-        {/* Sidebar Content (1/3 of the grid) */}
+        {/* Sidebar Content */}
         <div className="text-black p-4 rounded-md mt-12">
+          {/* Search Box */}
           <label className="input input-bordered flex items-center gap-2">
             <input type="text" className="grow" placeholder="Search" />
             <svg
@@ -75,31 +114,35 @@ const Blog = () => {
             </svg>
           </label>
 
+          {/* Categories */}
           <h4 className="text-xl font-semibold my-6">Categories</h4>
-          <div className="flex flex-col space-y-8 pb-20">
-            {["Crafts", "Design", "Handmade", "Interior", "Wood"].map(
-              (crnt,ind) => {
-                return <p key={ind} className="text-gray-400">{crnt}</p>;
-              }
-            )}
+          <div className="space-y-4">
+            {categories.map((category, index) => (
+              <p
+                key={index}
+                className="text-gray-400 hover:text-black cursor-pointer transition"
+              >
+                {category}
+              </p>
+            ))}
           </div>
 
-          <h4 className="text-xl font-semibold mb-4">Recent Posts</h4>
-
-          {/* Recent Posts List */}
+          {/* Recent Posts */}
+          <h4 className="text-xl font-semibold my-6">Recent Posts</h4>
           <div className="space-y-6">
             {recentPosts.map((post) => (
-              <div key={post.id} className="flex items-center gap-4">
+              <div key={post._id} className="flex items-center gap-4">
                 <Image
-                  src={`/blog/${post.img}`}
+                  src={urlFor(post.img).url()} 
                   alt={post.title}
                   width={100}
                   height={100}
                   className="rounded-md object-cover w-32"
+                  loading="lazy"
                 />
                 <div>
                   <p className="font-semibold">{post.title}</p>
-                  <p className="text-gray-400 text-sm">{post.para}</p>
+                  <p className="text-gray-400 text-sm">{post.date}</p>
                 </div>
               </div>
             ))}
@@ -111,5 +154,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
-

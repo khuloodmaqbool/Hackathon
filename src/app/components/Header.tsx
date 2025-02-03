@@ -7,7 +7,6 @@ import Image from "next/image";
 import { IoIosSearch } from "react-icons/io";
 import { TbUserExclamation } from "react-icons/tb";
 import { PiHeart } from "react-icons/pi";
-import { RxCross1 } from "react-icons/rx";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,86 +65,10 @@ const Header = () => {
               <PiHeart className="h-6 w-6 text-black" />
             </Link>
 
-            <div className="relative" >
-              <div className="drawer drawer-end z-50 h-fit">
-                <input
-                  id="my-drawer-4"
-                  type="checkbox"
-                  className="drawer-toggle"
-                />
-                <div className="drawer-content">
-                  {/* Page content here */}
-                  <label
-                    htmlFor="my-drawer-4"
-                    className="drawer-button cursor-pointer"
-                  >
-                    <MdOutlineShoppingCart className="h-6 w-6 text-black bg-white cursor-pointer" />
-                  </label>
-                </div>
-                <div className="drawer-side">
-                  <label
-                    htmlFor="my-drawer-4"
-                    aria-label="close sidebar"
-                    className="drawer-overlay"
-                  ></label>
-                  <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-6 relative">
-                    {/* Close Button */}
-                    <label
-                      htmlFor="my-drawer-4"
-                      aria-label="close drawer"
-                      className="absolute top-4 right-4 text-2xl font-bold text-gray-600 hover:text-gray-800 cursor-pointer"
-                    >
-                      &times;
-                    </label>
-
-                    {/* Title */}
-                    <h2 className="text-lg semifont-bold mb-6 ">
-                      Shopping Cart
-                    </h2>
-                    <hr />
-
-                    {/* Sidebar Item */}
-                    <li className=" border-b pb-4 mb-4">
-                      <div className="flex gap-2 justify-between p-0">
-                        <Image
-                          src="/products/lolita.png"
-                          alt="lolita"
-                          width={80}
-                          height={80}
-                          className="w-20 h-20 rounded-lg"
-                        />
-                        <div>
-                          <h5 className="text-sm font-medium text-gray-700">
-                            Asguard Sofa
-                          </h5>
-                          <p className="text-sm text-gray-600  py-4">
-                            1 ×
-                            <span className="font-semibold text-brownColor">
-                              Rs. 250,000.00
-                            </span>
-                          </p>
-                        </div>
-                        <RxCross1 className="bg-gray-600 rounded-full w-4 h-4 text-white p-1" />
-                      </div>
-                    </li>
-
-                    {/* Total Section */}
-                    <div className="mt-auto">
-                      <p className="text-lg font-medium flex justify-between">
-                        Subtotal:{" "}
-                        <span className="font-semibold text-brownColor">
-                          Rs. 250,000.00
-                        </span>
-                      </p>
-                    <Link href="cart" >
-                    <button className="w-full mt-4 bg-brownColor text-white px-4 py-2 rounded-lg hover:bg-brownColor-dark">
-                        Proceed to Checkout
-                      </button>
-                    </Link>
-                    </div>
-                  </ul>
-                </div>
-              </div>
+            <div className="relative">
+              <Link href="/cart">
+                <MdOutlineShoppingCart className="h-6 w-6 text-black bg-white cursor-pointer" />
+              </Link>
             </div>
           </div>
 
@@ -213,17 +136,17 @@ const Header = () => {
             ))}
 
             {/* Mobile-specific Icons */}
-            <Link className="flex items-center " href="/cart">
-            <MdOutlineShoppingCart className="h-8  w-8 my-2 text-black" />
+            <Link className="flex items-center" href="/cart">
+              <MdOutlineShoppingCart className="h-8 w-8 my-2 text-black" />
             </Link>
-            <Link className="flex items-center " href="#">
-              <TbUserExclamation className="h-8  w-8 my-2 text-black" />
+            <Link className="flex items-center" href="#">
+              <TbUserExclamation className="h-8 w-8 my-2 text-black" />
             </Link>
-            <Link className="flex items-center " href="#">
-              <IoIosSearch className="h-8  w-8 my-2 text-black" />
+            <Link className="flex items-center" href="#">
+              <IoIosSearch className="h-8 w-8 my-2 text-black" />
             </Link>
-            <Link className="flex items-center " href="#">
-              <PiHeart className="h-8  w-8 my-2 text-black" />
+            <Link className="flex items-center" href="#">
+              <PiHeart className="h-8 w-8 my-2 text-black" />
             </Link>
           </div>
         </div>

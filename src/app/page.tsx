@@ -1,25 +1,24 @@
 "use client";
 import Image from "next/image";
-import HeroSection from "./components/HeroSection";
+import dynamic from "next/dynamic";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
 import { MdOutlineCompareArrows } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
 import Link from "next/link";
-import Carousel from "./components/Carousel";
-import { PiHeart } from "react-icons/pi";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/lib/client";
+import HeroSection from "./components/HeroSection";
+
+const Carousel = dynamic(() => import("./components/Carousel"), { ssr: false });
 
 export default function Home() {
   const builder = imageUrlBuilder(client);
-
   const urlFor = (source: SanityImageSource) =>
     builder.image(source).auto("format").fit("max").quality(80).width(600);
 
   const context = useContext(AppContext);
-
   if (!context) return <p>Loading...</p>;
 
   const { state } = context;
@@ -29,15 +28,15 @@ export default function Home() {
 
   const BrowseRange = [
     {
-      img: "/images/dining.png",
+      img: "/images/dining.webp",
       title: "Dining",
     },
     {
-      img: "/images/living.png",
+      img: "/images/living.webp",
       title: "Living",
     },
     {
-      img: "/images/bedroom.png",
+      img: "/images/bedroom.webp",
       title: "Bedroom",
     },
   ];
@@ -45,83 +44,52 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-
       <h1 className="text-center font-bold text-3xl mt-12">Browse The Range</h1>
       <p className="text-center text-gray-400 mb-5 mt-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
       <div className="grid md:grid-cols-3 grid-cols-1 w-11/12 mx-auto gap-4">
-        {BrowseRange.map((crnt, ind) => {
-          return (
-            <div key={ind} className="mx-auto text-center">
-              <Image
-                src={crnt.img}
-                alt={crnt.title}
-                width={300}
-                height={300}
-                className="object-cover"
-              />
-              <h1 className="mt-5 font-bold">{crnt.title}</h1>
-            </div>
-          );
-        })}
+        {BrowseRange.map((crnt, ind) => (
+          <div key={ind} className="mx-auto text-center">
+            <Image
+              src={crnt.img}
+              alt={crnt.title}
+              width={300}
+              height={300}
+              priority
+              className="object-cover"
+            />
+            <h1 className="mt-5 font-bold">{crnt.title}</h1>
+          </div>
+        ))}
       </div>
 
-      <h1 className="text-center font-bold text-3xl mt-12  mb-5 ">
+      <h1 className="text-center font-bold text-3xl mt-12 mb-5">
         Our Products
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-6 w-11/12 mx-auto mt-6">
         {displayProduct.length > 0 ? (
           displayProduct.map((product) => (
             <Link key={product.id} href={`/product/${product._id}`}>
-              <div className="group bg-gray-100 overflow-hidden relative flex flex-col transition-shadow">
+              <div className="group bg-gray-100 overflow-hidden relative flex flex-col transition-shadow ">
                 {product.offer && (
                   <div
-                    className={`${
-                      product.offer === "New" ? "bg-teal-400" : "bg-red-500"
-                    } z-10 absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md text-sm `}
+                    className={`z-10 absolute top-4 right-4 w-14 h-14 text-white rounded-full flex items-center justify-center shadow-md text-sm ${product.offer === "New" ? "bg-teal-400" : "bg-red-500"}`}
                   >
                     {product.offer}
                   </div>
                 )}
 
                 <div className="w-full h-64 relative overflow-hidden">
-                  {/* {product.images && product.images.length > 0 ? (
-                    product.images.map((image, index) => (
-                      <Image
-                        key={index}
-                        src={urlFor(image).url()}
-                        alt={`${product.name} image ${index + 1}`}
-                        width={600}
-                        height={600}
-                        className={`object-cover w-full h-full ${
-                          index === 0 ? "block" : "hidden"
-                        }`}
-                      />
-                    ))
-                  ) : (
-                    <p className="text-center text-gray-500">No images available</p>
-                  )} */}
-                  {product.images && product.images.length > 0 ? (
-                    product.images.map((image, index) => {
-                      const imageUrl = image ? urlFor(image).url() : null;
-                      return imageUrl ? (
-                        <Image
-                          key={index}
-                          src={imageUrl}
-                          alt={`${product.name} image ${index + 1}`}
-                          width={600}
-                          height={600}
-                          className={`object-cover w-full h-full ${
-                            index === 0 ? "block" : "hidden"
-                          }`}
-                        />
-                      ) : (
-                        <p key={index} className="text-center text-gray-500">
-                          No image available
-                        </p>
-                      );
-                    })
+                  {product.images?.length > 0 ? (
+                    <Image
+                      src={urlFor(product.images[0]).url()}
+                      alt={product.name}
+                      width={600}
+                      height={600}
+                      className="object-cover w-full h-full"
+                      priority
+                    />
                   ) : (
                     <p className="text-center text-gray-500">
                       No images available
@@ -129,7 +97,7 @@ export default function Home() {
                   )}
                 </div>
 
-                <div className="z-20 absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
+                <div className=" z-20 absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2">
                   <button className="text-brownColor text-sm bg-white px-4 py-2">
                     Add to Cart
                   </button>
@@ -141,10 +109,6 @@ export default function Home() {
                     <button className="text-sm mx-1 text-white px-4 py-2 rounded flex items-center">
                       <MdOutlineCompareArrows className="mr-2" />
                       Compare
-                    </button>
-                    <button className="text-sm mx-1 text-white px-4 py-2 rounded flex items-center">
-                      <PiHeart className="mr-2" />
-                      Like
                     </button>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import { useState, useEffect, useContext } from "react";
 import FooterHeader from "@/app/components/FooterHeader";
 import HeaderBanner from "@/app/components/HeaderBanner";
@@ -15,7 +15,7 @@ const Cart = () => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); // Set to true once on the client side
+    setIsClient(true);
   }, []);
 
   const builder = imageUrlBuilder(client);
@@ -24,7 +24,7 @@ const Cart = () => {
 
   const cartContext = useContext(CartContext);
 
-  if (!isClient) return null; // Prevent rendering on the server
+  if (!isClient) return null;
 
   if (!cartContext) {
     return <p className="text-center mt-10">Loading cart...</p>;
@@ -97,7 +97,9 @@ const Cart = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500 py-6">Your cart is empty.</p>
+            <p className="text-center text-gray-500 py-6">
+              Your cart is empty.
+            </p>
           )}
         </div>
 
@@ -126,7 +128,10 @@ const Cart = () => {
           </Link>
 
           {/* Clear Cart Button */}
-          <button className="mt-4 text-red-500 underline" onClick={clearCartBtn}>
+          <button
+            className="mt-4 text-red-500 underline"
+            onClick={clearCartBtn}
+          >
             Clear Cart
           </button>
         </div>
