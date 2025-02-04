@@ -4,6 +4,7 @@ import { AppProvider } from "./context/AppContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/CartContext";
+import { FavouritesProvider } from "./context/FavouritesContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,9 +29,11 @@ export default function RootLayout({
       <body>
         <AppProvider>
           <CartProvider>
+            <FavouritesProvider>
             <Header />
             {children}
             <Footer />
+            </FavouritesProvider>
           </CartProvider>
         </AppProvider>
       </body>

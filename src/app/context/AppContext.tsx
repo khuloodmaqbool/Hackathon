@@ -8,7 +8,7 @@ interface Product {
   id: string;
   name: string;
   title: string;
-  description:string;
+  description: string;
   images: string[];
   colors: string[];
   sizes: string[];
@@ -21,9 +21,12 @@ interface Product {
 
 interface State {
   data: Product[];
+  favourites: number[];  // Store the product IDs that are marked as favourite
 }
 
-type Action = { type: "ALL_PRODUCTS"; payload: Product[] };
+type Action =
+  | { type: "ALL_PRODUCTS"; payload: Product[] }
+  | { type: "TOGGLE_FAVOURITE"; productId: number };  // Action to toggle favourite
 
 export const AppContext = createContext<{
   state: State;
@@ -38,6 +41,11 @@ const appReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ALL_PRODUCTS":
       return { ...state, data: action.payload };
+    case "TOGGLE_FAVOURITE":
+      const updatedFavourites = state.favourites.includes(action.productId)
+        ? state.favourites.filter((id) => id !== action.productId)
+        : [...state.favourites, action.productId];
+      return { ...state, favourites: updatedFavourites };
     default:
       return state;
   }
@@ -46,6 +54,7 @@ const appReducer = (state: State, action: Action): State => {
 export const AppProvider = ({ children }: ChildType) => {
   const initialState: State = {
     data: [],
+    favourites: [],  // Initialise the favourites array
   };
 
   const [state, dispatch] = useReducer(appReducer, initialState);
@@ -56,8 +65,6 @@ export const AppProvider = ({ children }: ChildType) => {
         _id,
         name,
         title,
-        // shortDescription,
-        // longDescription,
         description,
         "images": images[].asset._ref,
         colors,
@@ -78,5 +85,9 @@ export const AppProvider = ({ children }: ChildType) => {
     fetchProducts();
   }, []);
 
-  return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
 };
